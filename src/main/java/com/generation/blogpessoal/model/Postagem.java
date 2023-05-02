@@ -16,28 +16,32 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_postagens") /*CREATE TABLE tb_postagens*/
+@Table(name = "tb_postagens") /* CREATE TABLE tb_postagens */
 public class Postagem {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank(message = "O Atributo título é obrigatório")
-	@Size(min = 5, max = 100, message ="O Atributo título deve ter no minimo 05 e no máximo 100 caracteres")
+	@Size(min = 5, max = 100, message = "O Atributo título deve ter no minimo 05 e no máximo 100 caracteres")
 	private String titulo;
-	
+
 	@NotBlank(message = "O Atributo texto é obrigatório!")
 	@Size(min = 10, max = 1000, message = "O Atributo texto deve ter no minimo 10 e no máximo 1000 caracteres")
 	private String texto;
-	
+
 	@UpdateTimestamp
 	private LocalDateTime data;
-	
-	/*Criar relacionamento*/
+
+	/* Criar relacionamento */
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
+
+	@ManyToOne
+	@JsonIgnoreProperties("usuario")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -78,8 +82,13 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-	
 
-	
-	
+	public Usuario getUsuario() {
+		return usuario;
 	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+}
