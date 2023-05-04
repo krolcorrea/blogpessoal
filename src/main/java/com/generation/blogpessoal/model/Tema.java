@@ -27,7 +27,7 @@ public class Tema {
 	@Size (min = 5, max = 1000, message = "O atributo descrição deve ter no minímo 5 e no máximo 1000 caracteres")
 	private String descricao;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
 	private List<Postagem> postagem;
 
